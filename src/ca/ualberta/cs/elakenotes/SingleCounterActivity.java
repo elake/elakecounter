@@ -79,8 +79,9 @@ public class SingleCounterActivity extends Activity {
 		renameButton.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
+				
+				// http://www.androidsnippets.com/prompt-user-input-with-an-alertdialog
 				AlertDialog.Builder alert = new AlertDialog.Builder(SingleCounterActivity.this);
-
 				alert.setTitle("Rename Counter");
 				alert.setMessage("Enter new counter name:");
 
