@@ -25,6 +25,10 @@ public class CounterModel implements Comparable<CounterModel> {
 	public String getName() {
 		return name;
 	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public CountListModel getCountList() {
 		return countList;
@@ -45,6 +49,10 @@ public class CounterModel implements Comparable<CounterModel> {
 	
 	public void addCount() {
 		countList.addCount();
+	}
+	
+	public void resetCount() {
+		this.countList = new CountListModel();
 	}
 
 	@Override

@@ -2,26 +2,27 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/RelativeLayout1"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center_horizontal"
-    android:orientation="vertical" >
-
-    <TextView
-        android:id="@+id/CounterTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:text="TextView"
-        android:textSize="35sp" />
+    android:layout_height="match_parent" >
 
     <Button
-        android:id="@+id/delete"
+        android:id="@+id/increment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:text="Increment"
+        android:textSize="40sp" />
+
+    <TextView
+        android:id="@+id/CurCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:text="Delete Counter" />
+        android:layout_above="@+id/increment"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="25dp"
+        android:text="0"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="80sp" />
 
     <Button
         android:id="@+id/singlestats"
@@ -32,25 +33,37 @@
         android:text="Counter Stats" />
 
     <Button
-        android:id="@+id/increment"
+        android:id="@+id/delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:text="Delete Counter" />
+
+    <Button
+        android:id="@+id/rename"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/delete"
         android:layout_alignParentLeft="true"
-        android:layout_marginBottom="66dp"
-        android:layout_weight="0.51"
-        android:text="Increment"
-        android:textSize="40sp" />
+        android:text="Rename Counter" />
 
-    <TextView
-        android:id="@+id/CurCount"
+    <Button
+        android:id="@+id/reset"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/increment"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/singlestats"
+        android:layout_toRightOf="@+id/delete"
+        android:text="Reset" />
+
+    <TextView
+        android:id="@+id/CounterTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="76dp"
-        android:text="0"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="80sp" />
+        android:text="TextView"
+        android:textSize="35sp" />
 
 </RelativeLayout>

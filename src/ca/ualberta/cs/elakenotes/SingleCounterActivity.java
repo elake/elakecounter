@@ -13,11 +13,14 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class SingleCounterActivity extends Activity {
@@ -41,9 +44,21 @@ public class SingleCounterActivity extends Activity {
 		counterTitle = (TextView) findViewById(R.id.CounterTitle);
 		Button incButton = (Button) findViewById(R.id.increment);
 		Button deleteButton = (Button) findViewById(R.id.delete);
+		Button resetButton = (Button) findViewById(R.id.reset);
+		Button renameButton = (Button) findViewById(R.id.rename);
+		
+		resetButton.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				setResult(RESULT_OK);
+				activeCounter.resetCount();
+				countText.setText(Integer.toString(activeCounter.getLength()));
+				saveInFile(activeCounter, activeCounter.getFilename());
+			}
+		});
 		
 		incButton.setOnClickListener(new View.OnClickListener() {
-			// TODO: Add commit
+			
 			public void onClick(View v) {
 				setResult(RESULT_OK);
 				activeCounter.addCount();
@@ -58,6 +73,37 @@ public class SingleCounterActivity extends Activity {
 				File file = new File(getFilesDir(), activeCounter.getFilename());
 				file.delete();
 				finish();
+			}
+		});
+		
+		renameButton.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				AlertDialog.Builder alert = new AlertDialog.Builder(SingleCounterActivity.this);
+
+				alert.setTitle("Rename Counter");
+				alert.setMessage("Enter new counter name:");
+
+				// Set an EditText view to get user input 
+				final EditText input = new EditText(SingleCounterActivity.this);
+				alert.setView(input);
+
+				alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int whichButton) {
+				  String value = input.getText().toString();
+				  activeCounter.setName(value);
+				  saveInFile(activeCounter, activeCounter.getFilename());
+				  counterTitle.setText(activeCounter.getName());
+				  }
+				});
+
+				alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+				  public void onClick(DialogInterface dialog, int whichButton) {
+				    // Canceled.
+				  }
+				});
+
+				alert.show();
 			}
 		});
 	}

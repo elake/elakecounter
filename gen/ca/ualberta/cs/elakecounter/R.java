@@ -14,16 +14,18 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int CounterTitle=0x7f050001;
-        public static final int CurCount=0x7f050005;
+        public static final int CounterTitle=0x7f050007;
+        public static final int CurCount=0x7f050002;
         public static final int RelativeLayout1=0x7f050000;
-        public static final int body=0x7f050008;
-        public static final int clear=0x7f050009;
-        public static final int createCounter=0x7f05000a;
-        public static final int currentCounterList=0x7f050006;
-        public static final int delete=0x7f050002;
-        public static final int increment=0x7f050004;
-        public static final int newCounterMessage=0x7f050007;
+        public static final int body=0x7f05000a;
+        public static final int clear=0x7f05000b;
+        public static final int createCounter=0x7f05000c;
+        public static final int currentCounterList=0x7f050008;
+        public static final int delete=0x7f050004;
+        public static final int increment=0x7f050001;
+        public static final int newCounterMessage=0x7f050009;
+        public static final int rename=0x7f050005;
+        public static final int reset=0x7f050006;
         public static final int singlestats=0x7f050003;
     }
     public static final class layout {
