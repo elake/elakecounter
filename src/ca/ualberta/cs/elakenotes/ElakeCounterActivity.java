@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.lang.reflect.Type;
 
 import ca.ualberta.cs.elakecounter.R;
@@ -86,15 +87,10 @@ public class ElakeCounterActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onStart();
 		allCounters = new ArrayList<CounterModel>();
-		if (dir.isDirectory()){
-			// Load all files into allCounters
-			for (File element : dir.listFiles()){
+			for (File element : dir.listFiles()){ // Load all files into allCounters
 				allCounters.add(loadFromFile(element.getName()));
 			}
-		}
-		else {
-			dir.mkdir();
-		}
+		Collections.sort(allCounters); // Sort counters by current count
 		adapter = new ArrayAdapter<CounterModel>(this,
 				R.layout.list_item, allCounters);
 		counterList.setAdapter(adapter);

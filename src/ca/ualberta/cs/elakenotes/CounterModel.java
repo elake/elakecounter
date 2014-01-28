@@ -1,7 +1,7 @@
 package ca.ualberta.cs.elakenotes;
 import java.util.Random;
 
-public class CounterModel {
+public class CounterModel implements Comparable<CounterModel> {
 	private String name;
 	private CountListModel countList;
 	private String filename;
@@ -45,6 +45,13 @@ public class CounterModel {
 	
 	public void addCount() {
 		countList.addCount();
+	}
+
+	@Override
+	public int compareTo(CounterModel arg0) throws ClassCastException {
+		if (!(arg0 instanceof CounterModel))
+		      throw new ClassCastException("A CounterModel object expected.");
+		return Integer.valueOf(arg0.getLength()).compareTo(this.getLength());
 	}
 
 }
