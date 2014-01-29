@@ -3,11 +3,15 @@ package ca.ualberta.cs.elakenotes;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Calendar;
+import java.util.Map;
 
 
 public class DateAggregationModel {
 
+	private Map<String, Integer> aggregatedDate;
+	
 	private String DateCategorizer (Date date, int depth) {
+		
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
 		String[] values = new String[4];
@@ -26,15 +30,25 @@ public class DateAggregationModel {
 		return "dc";
 	}
 	
-	
+	private void GenerateAggregation (ArrayList<Date> dates, int depth) {
+		for (Date date: dates) {
+			String category = DateCategorizer(date, depth);
+			if (aggregatedDate.containsKey(category)) {
+				int newcount = (Integer) aggregatedDate.get(category);
+				newcount = newcount + 1;
+				aggregatedDate.put(category, newcount);
+			}
+			else {
+				aggregatedDate.put(category, 1);
+			}
+		
+		}
 	}
 	
-	
-	
-	
-	
-	
-	
-	
+	public DateAggregationModel (ArrayList<Date> dates, int depth) {
+		super();
+		GenerateAggregation(dates, depth);
+	}
 	
 }
+
