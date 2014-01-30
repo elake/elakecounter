@@ -4,7 +4,7 @@
     <string name="counterTitle">Enter new counter name:</string>
     <string name="app_name">elakeCounter</string>
     <string name="createCounter">Create New Counter</string>
-    <string name="clear">Clear</string>
+    <string name="clear">Clear Name</string>
     <string name="delete">Delete All</string>
     
 </resources>

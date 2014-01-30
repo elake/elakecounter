@@ -10,6 +10,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.lang.reflect.Type;
 
 import ca.ualberta.cs.elakecounter.R;
@@ -47,7 +48,25 @@ public class ElakeCounterActivity extends Activity {
 		bodyText = (EditText) findViewById(R.id.body);
 		Button saveButton = (Button) findViewById(R.id.createCounter);
 		Button clearButton = (Button) findViewById(R.id.clear);
+		Button statsButton = (Button) findViewById(R.id.viewstats);
 		counterList = (ListView) findViewById(R.id.currentCounterList);
+		
+		statsButton.setOnClickListener(new View.OnClickListener() {
+
+			public void onClick(View v) {
+				setResult(RESULT_OK);
+				ArrayList<Date> allDates = new ArrayList<Date>();
+				for (CounterModel element : allCounters) {
+					allDates.addAll(element.getCountList().getCountList());
+				}
+				Intent i = new Intent(getBaseContext(), AllStatsActivity.class);
+				Gson gson = new Gson();
+				String json = gson.toJson(allDates);
+				i.putExtra("alldates", json);
+				startActivity(i);
+			}
+		});
+		
 		saveButton.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View v) {

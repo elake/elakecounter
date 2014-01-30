@@ -20,6 +20,7 @@
         </activity>
         <activity android:name="ca.ualberta.cs.elakenotes.SingleCounterActivity"></activity>
         <activity android:name="ca.ualberta.cs.elakenotes.SingleStatsActivity"></activity>
+        <activity android:name="ca.ualberta.cs.elakenotes.AllStatsActivity"></activity>
     </application>
 
 </manifest>

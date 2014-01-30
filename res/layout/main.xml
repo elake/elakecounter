@@ -1,46 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/CounterTitle"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="My Counters" />
-
-    <ListView
-        android:id="@+id/currentCounterList"
-        android:layout_width="fill_parent"
-        android:layout_height="263dp"
-        android:layout_weight="1"
-        android:scrollbars="vertical" >
-
-    </ListView>
-
-    <TextView
         android:id="@+id/newCounterMessage"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/body"
+        android:layout_alignParentLeft="true"
         android:text="@string/counterTitle" />
-    
+
     <EditText
         android:id="@+id/body"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/createCounter"
+        android:layout_alignParentLeft="true"
         android:scrollbars="horizontal" />
 
     <Button
-        android:id="@+id/clear"
-        android:layout_width="match_parent"
+        android:id="@+id/viewstats"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="View Stats" />
+
+    <Button
+        android:id="@+id/clear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
         android:text="@string/clear" />
 
     <Button
         android:id="@+id/createCounter"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/viewstats"
+        android:layout_alignParentLeft="true"
         android:text="@string/createCounter" />
 
-</LinearLayout>
+    <ListView
+        android:id="@+id/currentCounterList"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/newCounterMessage"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/CounterTitle"
+        android:layout_weight="1"
+        android:scrollbars="vertical" >
+
+    </ListView>
+
+    <TextView
+        android:id="@+id/CounterTitle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="My Counters" />
+
+</RelativeLayout>

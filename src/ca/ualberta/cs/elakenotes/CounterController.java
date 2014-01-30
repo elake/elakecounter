@@ -1,3 +1,4 @@
+/*
 package ca.ualberta.cs.elakenotes;
 
 public class CounterController implements CounterControllerInterface {
@@ -13,3 +14,4 @@ public class CounterController implements CounterControllerInterface {
 	}
 
 }
+*/
