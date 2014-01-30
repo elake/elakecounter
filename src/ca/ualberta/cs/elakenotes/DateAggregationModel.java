@@ -1,14 +1,18 @@
 package ca.ualberta.cs.elakenotes;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 
 public class DateAggregationModel {
 
 	private Map<String, Integer> aggregatedDate;
+	private ArrayList<String> printableResult;
 	
 	private String DateCategorizer (Date date, int depth) {
 		
@@ -26,27 +30,43 @@ public class DateAggregationModel {
 			dc = dc + ", ";
 			dc = dc + titles[i] + " " + values[i];
 		}
-		dc = dc + ":";
-		return "dc";
+		dc = dc + ": ";
+		return dc;
 	}
 	
+	public ArrayList<String> getPrintableResult() {
+		return printableResult;
+	}
+
+	public void setPrintableResult(ArrayList<String> printableResult) {
+		this.printableResult = printableResult;
+	}
+
 	private void GenerateAggregation (ArrayList<Date> dates, int depth) {
 		for (Date date: dates) {
-			String category = DateCategorizer(date, depth);
+			String category = DateCategorizer(date, depth).toString();
 			if (aggregatedDate.containsKey(category)) {
+				System.out.println("yo");
 				int newcount = (Integer) aggregatedDate.get(category);
 				newcount = newcount + 1;
+				aggregatedDate.remove(category);
 				aggregatedDate.put(category, newcount);
 			}
 			else {
 				aggregatedDate.put(category, 1);
 			}
-		
 		}
+		for (Entry<String, Integer> entry : aggregatedDate.entrySet()) {
+			printableResult.add((entry.getKey() + entry.getValue().toString()));
+		}
+		Collections.sort(printableResult);
+		
 	}
 	
 	public DateAggregationModel (ArrayList<Date> dates, int depth) {
 		super();
+		printableResult = new ArrayList<String>();
+		aggregatedDate = new HashMap<String, Integer>();
 		GenerateAggregation(dates, depth);
 	}
 	

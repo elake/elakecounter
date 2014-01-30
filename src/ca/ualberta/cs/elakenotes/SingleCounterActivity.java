@@ -46,7 +46,19 @@ public class SingleCounterActivity extends Activity {
 		Button deleteButton = (Button) findViewById(R.id.delete);
 		Button resetButton = (Button) findViewById(R.id.reset);
 		Button renameButton = (Button) findViewById(R.id.rename);
+		Button statsButton = (Button) findViewById(R.id.singlestats);
 		
+		statsButton.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				Intent i = new Intent(getBaseContext(), SingleStatsActivity.class);
+				Gson gson = new Gson();
+				String json = gson.toJson(activeCounter);
+				i.putExtra("count", json);
+				startActivity(i);
+			}
+		});
+
 		resetButton.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {

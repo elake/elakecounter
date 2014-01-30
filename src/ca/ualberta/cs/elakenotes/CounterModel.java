@@ -1,4 +1,5 @@
 package ca.ualberta.cs.elakenotes;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class CounterModel implements Comparable<CounterModel> {
@@ -11,6 +12,12 @@ public class CounterModel implements Comparable<CounterModel> {
 		this.name = name;
 		countList = new CountListModel();
 		filename = Integer.toString(new Random().nextInt((int) 400000000)); // Functions as a UUID for filenames
+		
+	}
+	
+	public ArrayList<String> getPrintableAggregation (int depth) {
+		DateAggregationModel da = new DateAggregationModel(this.getCountList().getCountList(), depth);
+		return da.getPrintableResult();
 		
 	}
 	

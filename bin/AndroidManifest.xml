@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name="ca.ualberta.cs.elakenotes.SingleCounterActivity"></activity>
+        <activity android:name="ca.ualberta.cs.elakenotes.SingleStatsActivity"></activity>
     </application>
 
 </manifest>
