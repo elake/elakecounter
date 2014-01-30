@@ -68,11 +68,8 @@ public class SingleStatsActivity extends Activity {
 					int arg2, long arg3) {
 				setResult(RESULT_OK);
 				item = adapter.getItem(arg2).toString();
-				stats = activeCounter.getPrintableAggregation(spinnerValues.get(item).intValue());
-				stats = new ArrayList<String>();
-				stats.add("Hey");
-				System.out.println(spinnerValues.get(item));
-				statlist.setAdapter(statadapter);
+				stats.clear();
+				stats.addAll(activeCounter.getPrintableAggregation(spinnerValues.get(item).intValue()));
 				statadapter.notifyDataSetChanged();
 			}
         });
@@ -84,7 +81,7 @@ public class SingleStatsActivity extends Activity {
 	protected void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
-		stats = activeCounter.getPrintableAggregation(3);
+		stats = activeCounter.getPrintableAggregation(0);
 		statadapter = new ArrayAdapter<String>(this,
 				R.layout.list_item, stats);
 		statlist.setAdapter(statadapter);

@@ -44,12 +44,10 @@ public class DateAggregationModel {
 
 	private void GenerateAggregation (ArrayList<Date> dates, int depth) {
 		for (Date date: dates) {
-			String category = DateCategorizer(date, depth).toString();
+			String category = DateCategorizer(date, depth);
 			if (aggregatedDate.containsKey(category)) {
-				System.out.println("yo");
 				int newcount = (Integer) aggregatedDate.get(category);
 				newcount = newcount + 1;
-				aggregatedDate.remove(category);
 				aggregatedDate.put(category, newcount);
 			}
 			else {
