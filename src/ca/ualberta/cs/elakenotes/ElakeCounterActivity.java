@@ -31,7 +31,11 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 public class ElakeCounterActivity extends Activity {
-
+	/**
+	 * ElakeCounterActivity is the main activity. It displays a listview of the
+	 * counters, as well as an interface for creating new counters. Counters
+	 * are in descending order of count totals.
+	 */
 
 	private EditText bodyText;
 	private ListView counterList;
@@ -44,7 +48,7 @@ public class ElakeCounterActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		dir = new File(getFilesDir().toString());
+		dir = new File(getFilesDir().toString()); // Get the working directory
 		bodyText = (EditText) findViewById(R.id.body);
 		Button saveButton = (Button) findViewById(R.id.createCounter);
 		Button clearButton = (Button) findViewById(R.id.clear);
@@ -52,34 +56,37 @@ public class ElakeCounterActivity extends Activity {
 		counterList = (ListView) findViewById(R.id.currentCounterList);
 		
 		statsButton.setOnClickListener(new View.OnClickListener() {
+			// View the stats for all of the counters combined
 
 			public void onClick(View v) {
-				setResult(RESULT_OK);
+				setResult(RESULT_OK); 
 				ArrayList<Date> allDates = new ArrayList<Date>();
-				for (CounterModel element : allCounters) {
+				for (CounterModel element : allCounters) { // Create a list of all of the dates from every counter
 					allDates.addAll(element.getCountList().getCountList());
 				}
 				Intent i = new Intent(getBaseContext(), AllStatsActivity.class);
 				Gson gson = new Gson();
-				String json = gson.toJson(allDates);
+				String json = gson.toJson(allDates); // Send this list of dates to the AllStatsActivity
 				i.putExtra("alldates", json);
-				startActivity(i);
+				startActivity(i); // Open the AllStatsActivity
 			}
 		});
 		
 		saveButton.setOnClickListener(new View.OnClickListener() {
-
+			// Create a new counter with the user-provided name
+			
 			public void onClick(View v) {
 				setResult(RESULT_OK);
 				String name = bodyText.getText().toString();
 				CounterModel newCounter = new CounterModel(name);
 				allCounters.add(newCounter);
-				saveInFile(newCounter , newCounter.getFilename());
+				saveInFile(newCounter , newCounter.getFilename()); // Every counter gets a new file
 				adapter.notifyDataSetChanged();
 				bodyText.setText(null);
 			}
 		});
 		clearButton.setOnClickListener(new View.OnClickListener() {
+			// Clear the text inputted by the user
 			
 			public void onClick(View v) {
 				bodyText.setText(null);	
@@ -87,11 +94,12 @@ public class ElakeCounterActivity extends Activity {
 		});
 		
 		counterList.setOnItemClickListener(new OnItemClickListener() {
-
+			// The user has chosen a counter, go to the activity for that specific counter
+			
 			public void onItemClick(AdapterView<?> arg0, View arg1, int position,
 					long id) {
 				Intent i = new Intent(getBaseContext(), SingleCounterActivity.class);
-				CounterModel count = allCounters.get(position);
+				CounterModel count = allCounters.get(position); // Get the counter that the user chose
 				Gson gson = new Gson();
 				String json = gson.toJson(count);
 				i.putExtra("count", json);
@@ -103,10 +111,9 @@ public class ElakeCounterActivity extends Activity {
 
 	@Override
 	protected void onStart() {
-		// TODO Auto-generated method stub
 		super.onStart();
 		allCounters = new ArrayList<CounterModel>();
-			for (File element : dir.listFiles()){ // Load all files into allCounters
+			for (File element : dir.listFiles()){ // Load all counter files into allCounters
 				allCounters.add(loadFromFile(element.getName()));
 			}
 		Collections.sort(allCounters); // Sort counters by current count
@@ -116,6 +123,8 @@ public class ElakeCounterActivity extends Activity {
 	}
 
 	private CounterModel loadFromFile(String FILENAME) {
+		// Procedure for loading Json files navigated by Victoria Bobey for LonelyTwitter lab
+		
 		try {
 			String tweets;
 			FileInputStream fis = openFileInput(FILENAME);
@@ -142,6 +151,8 @@ public class ElakeCounterActivity extends Activity {
 	}
 	
 	private void saveInFile(CounterModel counter, String FILENAME) {
+		// Procedure for saving Json files navigated by Victoria Bobey for LonelyTwitter lab
+		
 		try {
 			FileOutputStream fos = openFileOutput(FILENAME,
 					Context.MODE_PRIVATE);

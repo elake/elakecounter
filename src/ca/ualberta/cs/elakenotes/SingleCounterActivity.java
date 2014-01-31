@@ -24,7 +24,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class SingleCounterActivity extends Activity {
-
+	/**
+	 * SingleCounterActivity allows the user to control the counter they selected in
+	 * ElakeCounterActivity. It allows for incrementing, individual stats, renaming,
+	 * zeroing, and deleting a counter.
+	 */
 
 	private TextView countText;
 	private TextView counterTitle;
@@ -33,10 +37,12 @@ public class SingleCounterActivity extends Activity {
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		// Similar creation to other activities
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.counter);
 		Intent i = getIntent();
-		String count = i.getStringExtra("count");
+		String count = i.getStringExtra("count"); // Get the counter we're going to use
 		Gson gson = new Gson();
 		Type counter = new TypeToken<CounterModel>(){}.getType();
 		activeCounter = gson.fromJson(count, counter);
@@ -49,46 +55,51 @@ public class SingleCounterActivity extends Activity {
 		Button statsButton = (Button) findViewById(R.id.singlestats);
 		
 		statsButton.setOnClickListener(new View.OnClickListener() {
+			// View the stats for this particular counter
 			
 			public void onClick(View v) {
 				Intent i = new Intent(getBaseContext(), SingleStatsActivity.class);
 				Gson gson = new Gson();
-				String json = gson.toJson(activeCounter);
+				String json = gson.toJson(activeCounter); // Send the counter to SingleStatsActivity
 				i.putExtra("count", json);
-				startActivity(i);
+				startActivity(i); // Start SingleStatsActivity
 			}
 		});
 
 		resetButton.setOnClickListener(new View.OnClickListener() {
+			// Zero the counter
 			
 			public void onClick(View v) {
 				setResult(RESULT_OK);
-				activeCounter.resetCount();
-				countText.setText(Integer.toString(activeCounter.getLength()));
-				saveInFile(activeCounter, activeCounter.getFilename());
+				activeCounter.resetCount(); // Zeroing handled by counter
+				countText.setText(Integer.toString(activeCounter.getLength())); // Reset the shown number
+				saveInFile(activeCounter, activeCounter.getFilename()); // Commit immediately
 			}
 		});
 		
 		incButton.setOnClickListener(new View.OnClickListener() {
+			// Increment the counter
 			
 			public void onClick(View v) {
 				setResult(RESULT_OK);
-				activeCounter.addCount();
-				countText.setText(Integer.toString(activeCounter.getLength()));
-				saveInFile(activeCounter, activeCounter.getFilename());
+				activeCounter.addCount(); // Adding handled by counter
+				countText.setText(Integer.toString(activeCounter.getLength())); // Update the shown number
+				saveInFile(activeCounter, activeCounter.getFilename()); // Commit immediately
 			}
 		});
 		
 		deleteButton.setOnClickListener(new View.OnClickListener() {
+			// Delete the counter forever
 			
 			public void onClick(View v) {
-				File file = new File(getFilesDir(), activeCounter.getFilename());
-				file.delete();
-				finish();
+				File file = new File(getFilesDir(), activeCounter.getFilename()); // Select the current counter's file
+				file.delete(); // Delete it
+				finish(); // Go back
 			}
 		});
 		
 		renameButton.setOnClickListener(new View.OnClickListener() {
+			// Rename the current counter
 			
 			public void onClick(View v) {
 				
@@ -104,9 +115,9 @@ public class SingleCounterActivity extends Activity {
 				alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int whichButton) {
 				  String value = input.getText().toString();
-				  activeCounter.setName(value);
-				  saveInFile(activeCounter, activeCounter.getFilename());
-				  counterTitle.setText(activeCounter.getName());
+				  activeCounter.setName(value); // Name setting handled by counter
+				  saveInFile(activeCounter, activeCounter.getFilename()); // Commit immediately
+				  counterTitle.setText(activeCounter.getName()); // Show the new name in the title
 				  }
 				});
 
@@ -131,6 +142,8 @@ public class SingleCounterActivity extends Activity {
 
 	
 	private void saveInFile(CounterModel counter, String FILENAME) {
+		// See credit for saveInFile to Victoria Bobey in ElakeCounterActivity
+		
 		try {
 			FileOutputStream fos = openFileOutput(FILENAME,
 					Context.MODE_PRIVATE);

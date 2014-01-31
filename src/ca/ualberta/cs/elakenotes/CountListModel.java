@@ -3,6 +3,11 @@ import java.util.Date;
 import java.util.ArrayList;
 
 public class CountListModel {
+	/**
+	 * CountLisModel is basically a wrapper for an arraylist of dates,
+	 * but it was created in case I decided to expand the data contained
+	 * by a single count.
+	 */
 	private ArrayList<Date> countList;
 
 	public ArrayList<Date> getCountList() {
